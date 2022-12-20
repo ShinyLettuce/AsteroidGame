@@ -24,6 +24,8 @@ void Player::update()
         input.x = 1;
     }
 
+    // normalizing of movement
+
     float length = sqrt(input.x * input.x + input.y * input.y);
     if (length > FLT_EPSILON)
     {
