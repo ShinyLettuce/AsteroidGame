@@ -24,12 +24,18 @@
     <ClCompile Include="Source\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Entity.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Level.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

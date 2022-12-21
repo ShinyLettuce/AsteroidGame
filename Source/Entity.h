@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "Math.h"
 
 class Entity
 {
@@ -40,10 +41,11 @@ public:
 class Rock : public Entity
 {
 public:
-    Vector2 position = { 40,40 };
-    Vector2 speed = { 1,1 };
+    Vector2 position = { random_float_in_range(20.f,430.f),0};
+    Vector2 speed = { 2,2 };
+    Vector2 direction = random_direction_pi();
     Color color = BROWN;
-    int size = 15;
+    int size = 20;
 
     void update();
     void render();

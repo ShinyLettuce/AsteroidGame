@@ -12,16 +12,28 @@ void Level::spawn_rock(const Rock& rock)
 	all_rocks.push_back(rock);
 }
 
+void Level::remove_dead_rocks()
+{
+	all_rocks.remove_if([](const Rock& r) -> bool {return r.dead; });
+}
+
 void Level::update()
 {
-	
+	rock_timer++;
+
+	if (rock_timer >= 20)
+	{
+
+		Rock new_rock;
+		spawn_rock(new_rock);
+		rock_timer = 0;
+	}
+
 	mario.update();
 
 	if (mario.shot_fired == true)
 	{
 		spawn_projectile();
-		Rock new_rock;
-		spawn_rock(new_rock);
 	}
 
 	shot.update();
@@ -30,6 +42,8 @@ void Level::update()
 	{
 		r.update();
 	}
+
+	remove_dead_rocks();
 }
 
 void Level::render()

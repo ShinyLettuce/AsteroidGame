@@ -76,12 +76,32 @@ void Player::render()
 
 void Rock::update()
 {
-    position.y += speed.y;
+    if (dead == true)
+    {
+        return;
+    }
+    
+    if (position.x > 450 || position.x < 0)
+    {
+        dead = true;
+    }
+    if (position.y > 450)
+    {
+        dead = true;
+    }
+
+    position.y += direction.y * speed.y;
+    position.x += direction.x * speed.x;
     return;
 }
 
 void Rock::render()
 {
+    if (dead == true)
+    {
+        return;
+    }
+
     DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }

@@ -1,12 +1,12 @@
 #pragma once
 #include "Entity.h"
-#include <vector>
+#include <list>
 
 class Level
 {
 public:
 	Player mario;
-	std::vector<Rock> all_rocks = {};
+	std::list<Rock> all_rocks = {};  // using list since that has the member function remove_if
 	Projectile shot;
 
 	Vector2 size;
@@ -15,6 +15,8 @@ public:
 
 	void spawn_rock(const Rock& rock);
 	void spawn_projectile();
+
+	void remove_dead_rocks();
 
 	void update();
 	void render();
