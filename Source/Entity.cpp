@@ -47,6 +47,7 @@ void Player::update()
         charge_time++;
         std::cout << charge_time << std::endl;
         color = YELLOW;
+        speed = { 2,2 };
         if (charge_time >= 60)
         {
             color = RED;
@@ -63,6 +64,7 @@ void Player::update()
         {
             std::cout << "not enough charge" << std::endl;
         }
+        speed = { 4,4 };
         color = WHITE;
         charge_time = 0;
     }
@@ -70,7 +72,7 @@ void Player::update()
 
 void Player::render()
 {
-    DrawRectangle((int)position.x, (int)position.y, 20, 20, color);
+    DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
 
