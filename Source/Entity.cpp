@@ -5,6 +5,11 @@
 
 void Player::update()
 {
+    if (dead == true)
+    {
+        return;
+    }
+
     // PLAYER MOVEMENT
 
     if (IsKeyDown(KEY_UP))
@@ -27,7 +32,7 @@ void Player::update()
     // normalizing of movement
 
     float length = sqrt(input.x * input.x + input.y * input.y);
-    if (length > FLT_EPSILON)
+    if (length > FLT_EPSILON) // FLT_EPSILON because we want to avoid using zero
     {
         input.x /= length;
         input.y /= length;
@@ -72,6 +77,11 @@ void Player::update()
 
 void Player::render()
 {
+    if (dead == true)
+    {
+        return;
+    }
+
     DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
@@ -81,15 +91,6 @@ void Rock::update()
     if (dead == true)
     {
         return;
-    }
-    
-    if (position.x > 450 || position.x < 0)
-    {
-        dead = true;
-    }
-    if (position.y > 450)
-    {
-        dead = true;
     }
 
     position.y += direction.y * speed.y;
@@ -126,6 +127,6 @@ void Projectile::render()
         return;
     }
 
-    DrawRectangle((int)position.x, (int)position.y, 10, 10, WHITE);
+    DrawRectangle((int)position.x, (int)position.y, size, size, WHITE);
     return;
 }

@@ -1,5 +1,42 @@
 #include "raylib.h"
 #include "Level.h"
+#include <stack>
+
+enum class GAME_STATE
+{
+    MAIN_MENU,
+    GAME
+};
+
+std::stack <GAME_STATE>game_state;
+
+void main_menu(Level& l)
+{
+    if (IsKeyPressed(KEY_X))
+    {
+        l.level_init();
+        game_state.push(GAME_STATE::GAME);
+    }
+    
+    l.update();
+    l.render();
+    
+    ClearBackground(BLACK);
+    DrawText("Survive Space", 110, 120, 32, WHITE);
+    DrawText("press X to start", 160, 152, 16, WHITE);
+
+}
+
+void game_screen(Level& l)
+{
+    l.update();
+    l.render();
+
+    if (l.mario.dead == true)
+    {
+        game_state.pop();
+    }
+}
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -8,11 +45,12 @@ int main(void)
 {    
     // Initialization
     //--------------------------------------------------------------------------------------
+    Level space;
+    game_state.push(GAME_STATE::MAIN_MENU);
     const int screenWidth = 450;
     const int screenHeight = 450;
 
-    Level space;
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    InitWindow(screenWidth, screenHeight, "Survive in space");
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -20,13 +58,21 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     { 
-        space.update();
 
-    BeginDrawing();
-        
-        space.render();
+        BeginDrawing();
 
-    EndDrawing();
+        switch (game_state.top())
+        {
+            case GAME_STATE::MAIN_MENU:
+                main_menu(space);
+                break;
+            case GAME_STATE::GAME:
+                game_screen(space);
+                break;
+        }
+
+        EndDrawing();
+
         //----------------------------------------------------------------------------------
     }
 
