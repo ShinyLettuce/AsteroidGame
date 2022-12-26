@@ -9,7 +9,7 @@ public:
 	std::list<Rock> all_rocks = {};  // using list since that has the member function remove_if
 	Projectile shot;
 
-	Vector2 size;
+	// Vector2 size;
 
 	int rock_timer = 0;
 
