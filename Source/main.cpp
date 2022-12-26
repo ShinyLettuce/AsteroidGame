@@ -23,7 +23,7 @@ void main_menu(Level& l)
     
     ClearBackground(BLACK);
     DrawText("Survive Space", 110, 120, 32, WHITE);
-    DrawText("press X to start", 160, 152, 16, WHITE);
+    DrawText("press x to start", 160, 152, 16, WHITE);
 
 }
 
