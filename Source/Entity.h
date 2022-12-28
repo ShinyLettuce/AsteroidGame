@@ -33,6 +33,8 @@ public:
     Vector2 input = { 0,0 };
     Color color = WHITE;
 
+    //Texture2D ship = LoadTexture("Ship2.png");
+
     int charge_time = 0;
     bool shot_fired = false;
 
@@ -56,8 +58,8 @@ public:
 class Projectile : public Entity
 {
 public:
-    Vector2 speed = { 0,-7 };
-    int size = 10;
+    Vector2 speed = { 0,-8 };
+    int size = 12;
     bool dead = true;
 
     void update();

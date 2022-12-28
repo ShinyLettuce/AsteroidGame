@@ -45,12 +45,13 @@ int main(void)
 {    
     // Initialization
     //--------------------------------------------------------------------------------------
-    Level space;
-    game_state.push(GAME_STATE::MAIN_MENU);
     const int screenWidth = 450;
     const int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "Survive in space");
+
+    Level space;
+    game_state.push(GAME_STATE::MAIN_MENU);
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------

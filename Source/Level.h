@@ -6,8 +6,8 @@ class Level
 {
 public:
 	Player mario;
-	std::list<Rock> all_rocks = {};  // using list since that has the member function remove_if
 	Projectile shot;
+	std::list<Rock> all_rocks = {};  // using list since that has the member function remove_if
 
 	// Vector2 size;
 

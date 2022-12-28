@@ -19,7 +19,7 @@ void Level::level_init()
 void Level::spawn_projectile()
 {
 	shot.dead = false;
-	shot.position.x = mario.position.x + 5;
+	shot.position.x = mario.position.x + 4;
 	shot.position.y = mario.position.y;
 }
 
