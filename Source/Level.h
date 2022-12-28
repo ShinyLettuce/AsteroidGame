@@ -13,12 +13,12 @@ public:
 
 	int rock_timer = 0;
 
-	void level_init();
-
 	void spawn_rock(const Rock& rock);
 	void spawn_projectile();
 
 	void remove_dead_rocks();
+
+	void level_init();
 
 	void update();
 	void render();

@@ -27,7 +27,7 @@ class Player : public Entity
 {
 public:
     Vector2 position = { 225,225 };
-    Vector2 speed = { 5,5 };
+    Vector2 speed = { 6,6 };
     int size = 20;
     bool dead = true;
     Vector2 input = { 0,0 };

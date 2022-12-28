@@ -8,12 +8,19 @@ void Level::level_init()
 	mario.charge_time = 0;
 	mario.dead = false;
 	mario.color = WHITE;
+
+	for (Rock& r : all_rocks)
+	{
+		r.dead = true;
+	}
+	remove_dead_rocks();
 }
 
 void Level::spawn_projectile()
 {
 	shot.dead = false;
-	shot.position = mario.position;
+	shot.position.x = mario.position.x + 5;
+	shot.position.y = mario.position.y;
 }
 
 void Level::spawn_rock(const Rock& rock)
