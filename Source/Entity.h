@@ -27,7 +27,7 @@ class Player : public Entity
 {
 public:
     Vector2 position = { 225,225 };
-    Vector2 speed = { 6,6 };
+    Vector2 speed = { 5,5 };
     int size = 20;
     bool dead = true;
     Vector2 input = { 0,0 };
@@ -64,4 +64,18 @@ public:
 
     void update();
     void render();
+};
+
+class Coin : public Entity
+{
+public:
+    Vector2 position = {};
+    Vector2 speed = {1.5,1.5};
+    int size = 5;
+    Vector2 direction = {};
+    Color color = RED;
+
+    void update();
+    void render();
+
 };

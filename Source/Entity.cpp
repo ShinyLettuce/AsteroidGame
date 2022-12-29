@@ -69,7 +69,7 @@ void Player::update()
         {
             std::cout << "not enough charge" << std::endl;
         }
-        speed = { 4,4 };
+        speed = { 5,5 };
         color = WHITE;
         charge_time = 0;
     }
@@ -129,5 +129,28 @@ void Projectile::render()
     }
 
     DrawRectangle((int)position.x, (int)position.y, size, size, WHITE);
+    return;
+}
+
+void Coin::update()
+{
+    if (dead == true)
+    {
+        return;
+    }
+
+    position.y += speed.y;
+
+    return;
+}
+
+void Coin::render()
+{
+    if (dead == true)
+    {
+        return;
+    }
+
+    DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
