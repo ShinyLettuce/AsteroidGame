@@ -13,6 +13,8 @@ void Level::level_init()
 	mario.dead = false;
 	mario.color = WHITE;
 
+	// TODO: kill all coins
+
 	for (Rock& r : all_rocks)
 	{
 		r.dead = true;
