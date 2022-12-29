@@ -33,7 +33,7 @@ public:
     Vector2 input = { 0,0 };
     Color color = WHITE;
 
-    //Texture2D ship = LoadTexture("Ship2.png");
+    Texture2D ship = LoadTexture("Ship2.png");
 
     int charge_time = 0;
     bool shot_fired = false;
