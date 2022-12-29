@@ -69,7 +69,7 @@ void Player::update()
         {
             std::cout << "not enough charge" << std::endl;
         }
-        speed = { 5,5 };
+        speed = { 4.5,4.5 };
         color = WHITE;
         charge_time = 0;
     }

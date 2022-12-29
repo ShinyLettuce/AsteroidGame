@@ -12,14 +12,18 @@ void Level::level_init()
 	mario.charge_time = 0;
 	mario.dead = false;
 	mario.color = WHITE;
+	point_count = 0;
 
-	// TODO: kill all coins
-
+	for (Coin& c : all_coins)
+	{
+		c.dead = true;
+	}
 	for (Rock& r : all_rocks)
 	{
 		r.dead = true;
 	}
-	remove_dead_rocks();
+
+	remove_dead_entities();
 }
 
 //  #---------------#
@@ -42,17 +46,14 @@ void Level::spawn_rock()
 void Level::spawn_coin(Rock rock)
 {
 	Coin new_coin;
-	new_coin.position = rock.position;
+	new_coin.position.x = rock.position.x + (float)GetRandomValue(-60,60);
+	new_coin.position.y = rock.position.y + (float)GetRandomValue(-60, 60);
 	all_coins.push_back(new_coin);
 }
 
-void Level::remove_dead_rocks()
+void Level::remove_dead_entities()
 {
 	all_rocks.remove_if([](const Rock& r) -> bool {return r.dead; });
-}
-
-void Level::remove_dead_coins()
-{
 	all_coins.remove_if([](const Coin& c) -> bool {return c.dead; });
 }
 
@@ -64,7 +65,7 @@ void Level::update()
 {
 	rock_timer++;
 
-	if (rock_timer >= 20 && mario.dead == false)
+	if (rock_timer >= rock_spawnrate(point_count,rock_cooldown) && mario.dead == false)
 	{
 		spawn_rock();
 		rock_timer = 0;
@@ -77,24 +78,26 @@ void Level::update()
 
 	for (Rock &r : all_rocks)
 	{
-		if (r.position.x > 450 || r.position.x < 0)
-		{
-			r.dead = true;
-		}
-		if (r.position.y > 450)
+		// rock hits edge
+		if (r.position.x > 450 || r.position.x < 0 || r.position.y > 450)
 		{
 			r.dead = true;
 		}
 		
+		// shot hits rock
 		if (r.position.x <= shot.position.x + shot.size &&
 			r.position.x + r.size >= shot.position.x &&
 			r.position.y + r.size >= shot.position.y &&
 			r.position.y <= shot.position.y + shot.size)
 		{
 			r.dead = true;
+			for (int i = 0; i < GetRandomValue(4, 8); i++)
+			{
 			spawn_coin(r);
+			}
 		}
-
+		
+		// rock hits player
 		if (r.position.x <= mario.position.x + mario.size &&
 			r.position.x + r.size >= mario.position.x &&
 			r.position.y + r.size >= mario.position.y &&
@@ -107,14 +110,30 @@ void Level::update()
 	}
 	for (Coin& c : all_coins)
 	{
+		// coin hits edge
+		if (c.position.x > 450 || c.position.x < 0 || c.position.y > 450)
+		{
+			c.dead = true;
+		}
+
+		// coin hits player
+		if (c.position.x <= mario.position.x + mario.size &&
+			c.position.x + c.size >= mario.position.x &&
+			c.position.y + c.size >= mario.position.y &&
+			c.position.y <= mario.position.y + mario.size &&
+			mario.dead == false)
+		{
+			c.dead = true;
+			point_count += 50;
+		}
+
 		c.update();
 	}
 	
 	mario.update();
 	shot.update();
 
-
-	remove_dead_rocks();
+	remove_dead_entities();
 }
 
 //  #--------#
@@ -136,5 +155,5 @@ void Level::render()
 		r.render();
 	}
 
-	DrawText("00",211,10,24,WHITE);
+	DrawText(TextFormat("%05i",point_count), 195, 10, 24, BLUE);
 }
