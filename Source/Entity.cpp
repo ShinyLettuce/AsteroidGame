@@ -82,8 +82,8 @@ void Player::render()
         return;
     }
 
-    DrawTexture(ship,(int)position.x,(int)position.y, WHITE);
-    //DrawRectangle((int)position.x, (int)position.y, size, size, color);
+    //DrawTexture(ship,(int)position.x,(int)position.y, WHITE);
+    DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
 
