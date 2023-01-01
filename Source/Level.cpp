@@ -125,10 +125,23 @@ void Level::update()
 			mario.dead == false)
 		{
 			c.dead = true;
-			point_count += 50;
+
+			combo_timer = 60;           // start/prolong combo (thinking of implementing combo as an entity)
+			point_count += coin_value;
+			combo_text_value = coin_value;
+			coin_value += 10;
 		}
 
 		c.update();
+	}
+
+	if (combo_timer > 0)                // decrease combo timer
+	{
+		combo_timer--;
+	}
+	else                                // end combo
+	{
+		coin_value = 50;
 	}
 	
 	mario.update();
@@ -156,5 +169,9 @@ void Level::render()
 		r.render();
 	}
 
+	if (combo_timer > 0)
+	{
+	DrawText(TextFormat("%03i", combo_text_value), mario.position.x + 35, mario.position.y, 16, YELLOW); //draw combo text
+	}
 	DrawText(TextFormat("%05i",point_count), 195, 10, 24, BLUE);
 }

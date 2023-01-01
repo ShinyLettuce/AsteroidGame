@@ -10,10 +10,15 @@ public:
 	std::list<Rock> all_rocks = {};  // using list since that has the member function remove_if
 	std::list<Coin> all_coins = {};
 
+	//bool coin_combo = false;
+
 	// Vector2 size;
 	int point_count = 0;
-	int rock_timer = 0;
-	int rock_cooldown = 65;
+	unsigned short combo_timer = 0;
+	unsigned short combo_text_value;
+	unsigned short coin_value = 50;
+	unsigned short rock_timer = 0;
+	unsigned short rock_cooldown = 65;
 
 	void spawn_rock();
 	void spawn_projectile();

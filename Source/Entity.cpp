@@ -1,5 +1,4 @@
 #include "Entity.h"
-
 #include <cmath>
 #include <iostream>
 
@@ -29,8 +28,7 @@ void Player::update()
         input.x = 1;
     }
 
-    // normalizing of movement
-
+    // normalizing input vector
     float length = sqrt(input.x * input.x + input.y * input.y);
     if (length > FLT_EPSILON) // FLT_EPSILON because we want to avoid using zero
     {
@@ -138,7 +136,6 @@ void Coin::update()
     }
 
     position.y += speed.y;
-
     return;
 }
 
