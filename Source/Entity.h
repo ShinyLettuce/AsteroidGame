@@ -72,7 +72,7 @@ public:
     Vector2 position = {};
     Vector2 speed = {1.5,1.5};
     int size = 8;
-    Vector2 direction = {};
+    //Vector2 direction = {};
     Color color = RED;
 
     void update();
