@@ -74,6 +74,7 @@ void Level::update()
 	if (mario.shot_fired == true)
 	{
 		spawn_projectile();
+		mario.shot_fired = false;
 	}
 
 	for (Rock &r : all_rocks)
