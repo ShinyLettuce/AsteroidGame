@@ -10,8 +10,6 @@ public:
 	std::list<Rock> all_rocks = {};  // using list since that has the member function remove_if
 	std::list<Coin> all_coins = {};
 
-	//bool coin_combo = false;
-
 	// Vector2 size;
 	int point_count = 0;
 	unsigned short combo_timer = 0;
