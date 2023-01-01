@@ -45,8 +45,6 @@ void Player::update()
 
     // PLAYER CHARGED SHOT
 
-    //shot_fired = false;
-
     if (IsKeyDown(KEY_Z))
     {
         charge_time++;
