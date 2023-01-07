@@ -28,7 +28,7 @@ void Player::update()
         input.x = 1;
     }
 
-    // normalizing input vector
+    // normalizing input vector             TODO: put in math.cpp
     float length = sqrt(input.x * input.x + input.y * input.y);
     if (length > FLT_EPSILON) // FLT_EPSILON because we want to avoid using zero
     {
