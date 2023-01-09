@@ -7,6 +7,7 @@ class Level
 public:
 	Sound menusound;
 	Sound death;
+	Sound collectible;
 
 	Player mario;
 	Projectile shot;

@@ -31,6 +31,7 @@ void Level::media_init()
 	InitAudioDevice();
 	menusound = LoadSound("menu.wav");
 	death = LoadSound("death.wav");
+	collectible = LoadSound("collectible.wav");
 }
 
 //  #---------------#
@@ -112,8 +113,9 @@ void Level::update()
 			r.position.y <= mario.position.y + mario.size &&
 			mario.dead == false)
 		{
-			PlaySoundMulti(death);
 			mario.dead = true;
+			combo_timer = 0;
+			PlaySoundMulti(death);
 		}
 
 		r.update();
@@ -134,6 +136,7 @@ void Level::update()
 			mario.dead == false)
 		{
 			c.dead = true;
+			PlaySoundMulti(collectible);
 
 			combo_timer = 60;           // start/prolong combo (thinking of implementing combo as an entity)
 			point_count += coin_value;
@@ -180,7 +183,7 @@ void Level::render()
 
 	if (combo_timer > 0)
 	{
-	DrawText(TextFormat("%03i", combo_text_value), mario.position.x + 35, mario.position.y, 16, YELLOW); //draw combo text
+	DrawText(TextFormat("+" "%03i",combo_text_value), mario.position.x + 35, mario.position.y, 16, YELLOW); //draw combo text
 	}
 	DrawText(TextFormat("%05i",point_count), 195, 10, 24, BLUE);
 }
