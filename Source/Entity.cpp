@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include <cmath>
-#include <iostream>
+//#include <iostream>
 
 void Player::update()
 {
