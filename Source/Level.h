@@ -5,6 +5,9 @@
 class Level
 {
 public:
+	Sound menusound;
+	Sound death;
+
 	Player mario;
 	Projectile shot;
 	std::list<Rock> all_rocks = {};  // using list since that has the member function remove_if
@@ -24,6 +27,7 @@ public:
 
 	void remove_dead_entities();  // TODO: make these into one function
 
+	void media_init();
 	void level_init();
 
 	void update();

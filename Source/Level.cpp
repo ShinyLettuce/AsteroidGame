@@ -26,6 +26,13 @@ void Level::level_init()
 	remove_dead_entities();
 }
 
+void Level::media_init()
+{
+	InitAudioDevice();
+	menusound = LoadSound("menu.wav");
+	death = LoadSound("death.wav");
+}
+
 //  #---------------#
 //  |SPAWN FUNCTIONS|  (PLUS REMOVE DEAD FUNCTIONS)
 //  #---------------#
@@ -102,8 +109,10 @@ void Level::update()
 		if (r.position.x <= mario.position.x + mario.size &&
 			r.position.x + r.size >= mario.position.x &&
 			r.position.y + r.size >= mario.position.y &&
-			r.position.y <= mario.position.y + mario.size)
+			r.position.y <= mario.position.y + mario.size &&
+			mario.dead == false)
 		{
+			PlaySoundMulti(death);
 			mario.dead = true;
 		}
 
