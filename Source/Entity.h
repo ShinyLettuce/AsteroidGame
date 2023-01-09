@@ -8,6 +8,7 @@ public:
     Vector2 position = {};
     Vector2 speed = {};
     Color color;
+    int size;
     bool dead = false;
 
     virtual void update()
@@ -49,7 +50,7 @@ public:
     Vector2 speed = { 4,4 };
     int size = 20;
     Vector2 direction = random_direction();
-    Color color = BROWN;
+    Color color = ORANGE;
 
     void update();
     void render();
@@ -69,7 +70,6 @@ public:
 class Coin : public Entity
 {
 public:
-    Vector2 position = {};
     Vector2 speed = {1.5,1.5};
     int size = 8;
     //Vector2 direction = {};
@@ -78,4 +78,16 @@ public:
     void update();
     void render();
 
+};
+
+class Particle : public Entity
+{
+public:
+    Vector2 position = {};
+    Vector2 speed = {};
+
+    bool explosion = false;
+
+    void update();
+    void render();
 };

@@ -149,3 +149,15 @@ void Coin::render()
     DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
+
+void Particle::update()
+{
+    position.x += speed.x;
+    position.y += speed.y;
+}
+
+void Particle::render()
+{
+    DrawRectangle(position.x, position.y, 4, 4, color);
+    return;
+}

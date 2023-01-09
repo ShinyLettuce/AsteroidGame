@@ -23,8 +23,9 @@ void main_menu(Level& l)
     l.render();
     
     ClearBackground(BLACK);
-    DrawText("Survive Space", 110, 120, 32, WHITE);
-    DrawText("press x to start", 160, 152, 16, WHITE);
+    DrawText("Survive", 135, 120, 48, RED);
+    DrawText("Space", 150, 168, 48, RED);
+    DrawText("press x to start", 160, 216, 16, WHITE);
 
 }
 

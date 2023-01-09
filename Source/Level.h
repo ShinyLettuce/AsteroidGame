@@ -11,17 +11,23 @@ public:
 
 	Player mario;
 	Projectile shot;
-	std::list<Rock> all_rocks = {};  // using list since that has the member function remove_if
-	std::list<Coin> all_coins = {};
+	std::list<Rock> all_rocks		  = {};  // using list since that has the member function remove_if
+	std::list<Coin> all_coins         = {};
+	std::list<Particle> all_particles = {};
 
 	// Vector2 size;
-	int point_count = 0;
-	unsigned short combo_timer = 0;
+	unsigned int point_count          = 0;
+	unsigned short combo_timer        = 0;
+	unsigned short coin_value         = 50;
 	unsigned short combo_text_value;
-	unsigned short coin_value = 50;
-	unsigned short rock_timer = 0;
-	unsigned short rock_cooldown = 65;
 
+	unsigned short rock_timer         = 0;
+	unsigned short rock_cooldown      = 65;
+
+	bool particle_spawn_spacing       = false;
+
+	void spawn_spacedust();
+	void spawn_explosion(Vector2 pos);
 	void spawn_rock();
 	void spawn_projectile();
 	void spawn_coin(Rock rock); // TODO: try implementing entity pool

@@ -22,7 +22,13 @@ void Level::level_init()
 	{
 		r.dead = true;
 	}
-
+	for (Particle& p : all_particles)
+	{
+		if (p.explosion == true)
+		{
+			p.dead = true;
+		}
+	}
 	remove_dead_entities();
 }
 
@@ -37,6 +43,36 @@ void Level::media_init()
 //  #---------------#
 //  |SPAWN FUNCTIONS|  (PLUS REMOVE DEAD FUNCTIONS)
 //  #---------------#
+
+void Level::spawn_spacedust()
+{
+	if (particle_spawn_spacing == false)
+	{
+		Particle dust;
+		dust.position = { 225.f,-95.f };
+		dust.speed = { random_float_in_range(-6,6),5.5f };
+		dust.color = LIGHTGRAY;
+		all_particles.push_back(dust);
+		particle_spawn_spacing = true;
+	}
+	else
+	{
+		particle_spawn_spacing = false;
+	}
+}
+
+void Level::spawn_explosion(Vector2 pos)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		Particle fire;
+		fire.explosion = true;
+		fire.position = pos;
+		fire.color = RED;
+		fire.speed = { random_float_in_range(-5,5),random_float_in_range(-5,5) };
+		all_particles.push_back(fire);
+	}
+}
 
 void Level::spawn_projectile()
 {
@@ -63,6 +99,7 @@ void Level::remove_dead_entities()
 {
 	all_rocks.remove_if([](const Rock& r) -> bool {return r.dead; });
 	all_coins.remove_if([](const Coin& c) -> bool {return c.dead; });
+	all_particles.remove_if([](const Particle& p) -> bool {return p.dead; });
 }
 
 //  #--------#
@@ -71,68 +108,59 @@ void Level::remove_dead_entities()
 
 void Level::update()
 {
-	rock_timer++;
+	//PARTICLES
+	spawn_spacedust();
+	for (Particle &p : all_particles)
+	{
+		if (p.position.x > 450 || p.position.x < 0 || p.position.y > 450)
+		{
+			p.dead = true;
+		}
+		p.update();
+	}
 
-	if (rock_timer >= rock_spawnrate(point_count,rock_cooldown) && mario.dead == false)
+	//ROCKS
+	rock_timer++;
+	if (rock_timer >= rock_spawnrate(point_count,rock_cooldown) &&
+		mario.dead == false)
 	{
 		spawn_rock();
 		rock_timer = 0;
 	}
-
-	if (mario.shot_fired == true)
-	{
-		spawn_projectile();
-		mario.shot_fired = false;
-	}
-
 	for (Rock &r : all_rocks)
 	{
-		// rock hits edge
 		if (r.position.x > 450 || r.position.x < 0 || r.position.y > 450)
 		{
 			r.dead = true;
 		}
-		
-		// shot hits rock
-		if (r.position.x <= shot.position.x + shot.size &&
-			r.position.x + r.size >= shot.position.x &&
-			r.position.y + r.size >= shot.position.y &&
-			r.position.y <= shot.position.y + shot.size)
+		if (collision(r.position,shot.position,r.size,shot.size))
 		{
 			r.dead = true;
 			for (int i = 0; i < GetRandomValue(4, 8); i++)
 			{
 			spawn_coin(r);
 			}
+			spawn_explosion(r.position);
+			PlaySoundMulti(death);
 		}
-		
-		// rock hits player
-		if (r.position.x <= mario.position.x + mario.size &&
-			r.position.x + r.size >= mario.position.x &&
-			r.position.y + r.size >= mario.position.y &&
-			r.position.y <= mario.position.y + mario.size &&
+		if (collision(r.position,mario.position,r.size,mario.size) &&
 			mario.dead == false)
 		{
 			mario.dead = true;
 			combo_timer = 0;
+			spawn_explosion(mario.position);
 			PlaySoundMulti(death);
 		}
-
 		r.update();
 	}
+	// COINS
 	for (Coin& c : all_coins)
 	{
-		// coin hits edge
 		if (c.position.x > 450 || c.position.x < 0 || c.position.y > 450)
 		{
 			c.dead = true;
 		}
-
-		// coin hits player
-		if (c.position.x <= mario.position.x + mario.size &&
-			c.position.x + c.size >= mario.position.x &&
-			c.position.y + c.size >= mario.position.y &&
-			c.position.y <= mario.position.y + mario.size &&
+		if (collision(c.position,mario.position,c.size,mario.size) &&
 			mario.dead == false)
 		{
 			c.dead = true;
@@ -143,10 +171,8 @@ void Level::update()
 			combo_text_value = coin_value;
 			coin_value += 10;
 		}
-
 		c.update();
 	}
-
 	if (combo_timer > 0)                // decrease combo timer
 	{
 		combo_timer--;
@@ -155,9 +181,15 @@ void Level::update()
 	{
 		coin_value = 50;
 	}
+
 	
-	mario.update();
+	if (mario.shot_fired == true)
+	{
+		spawn_projectile();
+		mario.shot_fired = false;
+	}
 	shot.update();
+	mario.update();
 
 	remove_dead_entities();
 }
@@ -170,6 +202,11 @@ void Level::render()
 {
 	ClearBackground(BLACK);
 
+	for (Particle p : all_particles)
+	{
+		if(p.position.y > 16)
+		p.render();
+	}
 	mario.render();
 	shot.render();
 	for (Coin& c : all_coins)
