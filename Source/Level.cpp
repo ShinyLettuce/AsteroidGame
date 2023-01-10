@@ -220,7 +220,7 @@ void Level::render()
 
 	if (combo_timer > 0)
 	{
-	DrawText(TextFormat("+" "%03i",combo_text_value), mario.position.x + 35, mario.position.y, 16, YELLOW); //draw combo text
+	DrawText(TextFormat("+" "%i",combo_text_value), mario.position.x + 35, mario.position.y, 16, YELLOW); //draw combo text
 	}
-	DrawText(TextFormat("%05i",point_count), 195, 10, 24, BLUE);
+	DrawText(TextFormat("%02i",point_count), 210, 10, 24, BLUE);
 }
