@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include <cmath>
-#include <iostream>
+//#include <iostream>
 
 void Player::update()
 {
@@ -46,7 +46,7 @@ void Player::update()
     if (IsKeyDown(KEY_Z))
     {
         charge_time++;
-        std::cout << charge_time << std::endl;
+        //std::cout << charge_time << std::endl;
         color = YELLOW;
         speed = { 2,2 };
         if (charge_time >= 60)
@@ -58,12 +58,12 @@ void Player::update()
     {
         if (charge_time >= 60)
         {
-            std::cout << "shot fired" << std::endl;
+            //std::cout << "shot fired" << std::endl;
             shot_fired = true;
         }
         else
         {
-            std::cout << "not enough charge" << std::endl;
+            //std::cout << "not enough charge" << std::endl;
         }
         speed = { 4.5,4.5 };
         color = WHITE;
