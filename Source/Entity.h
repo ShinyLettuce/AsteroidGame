@@ -45,7 +45,7 @@ public:
 class Rock : public Entity
 {
 public:
-    Texture2D rock = LoadTexture("Rock.png"); // this sucks since every new rock will load the texture      TODO: create asset manager
+    Texture2D rock = LoadTexture("Rock.png"); // this sucks since every new rock will load the texture      TODO: create asset manager (probably using pointers)
     Vector2 position = { random_float_in_range(20.f,430.f),0};
     Vector2 speed = { 5,5 };
     int size = 20;
