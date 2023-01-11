@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Level.h"
 #include <cmath>
 //#include <iostream>
 
@@ -78,8 +79,8 @@ void Player::render()
         return;
     }
 
-    //DrawTexture(ship,(int)position.x,(int)position.y, WHITE);
-    DrawRectangle((int)position.x, (int)position.y, size, size, color);
+    DrawTexture(ship,(int)position.x,(int)position.y, color);
+    //DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
 
@@ -102,7 +103,8 @@ void Rock::render()
         return;
     }
 
-    DrawRectangle((int)position.x, (int)position.y, size, size, color);
+    DrawTexture(rock, (int)position.x, (int)position.y, WHITE);
+    //DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
 
@@ -158,6 +160,6 @@ void Particle::update()
 
 void Particle::render()
 {
-    DrawRectangle(position.x, position.y, 4, 4, color);
+    DrawRectangle((int)position.x, (int)position.y, 4, 4, color);
     return;
 }

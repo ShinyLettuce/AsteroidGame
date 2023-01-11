@@ -1,5 +1,7 @@
 #pragma once
 #include "Entity.h"
+#include "Math.h"
+#include "Media.h"
 #include <list>
 
 class Level
@@ -8,6 +10,8 @@ public:
 	Sound menusound;
 	Sound death;
 	Sound collectible;
+	Texture2D ship;
+	Texture2D rock;
 
 	Player mario;
 	Projectile shot;
@@ -16,15 +20,15 @@ public:
 	std::list<Particle> all_particles = {};
 
 	// Vector2 size;
-	unsigned int point_count          = 0;
-	unsigned short combo_timer        = 0;
-	unsigned short coin_value         = 50;
-	unsigned short combo_text_value;
+	int point_count      = 0;
+	int combo_timer      = 0;
+	int coin_value       = 50;
+	int combo_text_value = 0;
 
-	unsigned short rock_timer         = 0;
-	unsigned short rock_cooldown      = 65;
+	int rock_timer       = 0;
+	int rock_cooldown    = 65;
 
-	bool particle_spawn_spacing       = false;
+	bool particle_spawn_spacing = false;
 
 	void spawn_spacedust();
 	void spawn_explosion(Vector2 pos);

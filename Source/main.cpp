@@ -1,5 +1,5 @@
-#include "raylib.h"
 #include "Level.h"
+#include "Media.h"
 #include <stack>
 
 enum class GAME_STATE
@@ -51,7 +51,6 @@ int main(void)
     const int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "Survive in space");
-
     Level space;
     space.media_init();
     game_state.push(GAME_STATE::MAIN_MENU);

@@ -1,5 +1,5 @@
 #pragma once
-#include "raylib.h"
+#include "Media.h"
 #include "Math.h"
 
 class Entity
@@ -27,14 +27,13 @@ public:
 class Player : public Entity
 {
 public:
+    Texture2D ship = LoadTexture("Ship3.png");
     Vector2 position = { 225,225 };
     Vector2 speed = { 4.5,4.5 };
     int size = 20;
     bool dead = true;
     Vector2 input = { 0,0 };
     Color color = WHITE;
-
-    //Texture2D ship = LoadTexture("Ship2.png");
 
     int charge_time = 0;
     bool shot_fired = false;
@@ -46,8 +45,9 @@ public:
 class Rock : public Entity
 {
 public:
+    Texture2D rock = LoadTexture("Rock.png"); // this sucks since every new rock will load the texture      TODO: create asset manager
     Vector2 position = { random_float_in_range(20.f,430.f),0};
-    Vector2 speed = { 4,4 };
+    Vector2 speed = { 5,5 };
     int size = 20;
     Vector2 direction = random_direction();
     Color color = ORANGE;
