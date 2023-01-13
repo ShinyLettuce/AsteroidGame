@@ -16,3 +16,6 @@ int rock_spawnrate(int point_count, int rock_cooldown);
 
 // Checks for collision between two boxes and returns true on collision
 bool collision(Vector2 a_pos, Vector2 b_pos, int a_size, int b_size);
+
+// Normalizes two vectors
+void normalize(float& vect_x, float& vect_y);

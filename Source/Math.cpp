@@ -35,3 +35,13 @@ bool collision(Vector2 a_pos, Vector2 b_pos, int a_size, int b_size)
 		a_pos.y + a_size >= b_pos.y &&
 		a_pos.y <= b_pos.y + b_size;
 }
+
+void normalize(float& vect_x, float& vect_y)
+{
+	float length = sqrt(vect_x * vect_x + vect_y * vect_y);
+	if (length > FLT_EPSILON) // FLT_EPSILON because we want to avoid using zero
+	{
+		vect_x /= length;
+		vect_y /= length;
+	}
+}

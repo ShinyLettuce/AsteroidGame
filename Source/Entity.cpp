@@ -30,15 +30,16 @@ void Player::update()
     }
 
     // normalizing input vector             TODO: put in math.cpp
-    float length = sqrt(input.x * input.x + input.y * input.y);
-    if (length > FLT_EPSILON) // FLT_EPSILON because we want to avoid using zero
-    {
-        input.x /= length;
-        input.y /= length;
-    }
+    normalize(input.x, input.y);
 
-    position.x += input.x * speed.x;
-    position.y += input.y * speed.y;
+    if ((position.x + input.x * speed.x) < 450 - size && (position.x + input.x * speed.x) > 0)
+    {
+        position.x += input.x * speed.x;
+    }
+    if ((position.y + input.y * speed.y) < 450 - size && (position.y + input.y * speed.y) > 0)
+    {
+        position.y += input.y * speed.y;
+    }
 
     input = { 0,0 };
 
@@ -46,28 +47,23 @@ void Player::update()
 
     if (IsKeyDown(KEY_Z))
     {
+        charging_shot = true;
         charge_time++;
-        //std::cout << charge_time << std::endl;
-        color = YELLOW;
         speed = { 2,2 };
         if (charge_time >= 60)
         {
-            color = RED;
+            color = BLUE;
         }
     }
     if (IsKeyReleased(KEY_Z))
     {
         if (charge_time >= 60)
         {
-            //std::cout << "shot fired" << std::endl;
             shot_fired = true;
-        }
-        else
-        {
-            //std::cout << "not enough charge" << std::endl;
         }
         speed = { 4.5,4.5 };
         color = WHITE;
+        charging_shot = false;
         charge_time = 0;
     }
 }
@@ -103,7 +99,7 @@ void Rock::render()
         return;
     }
 
-    DrawTexture(rock, (int)position.x, (int)position.y, WHITE);
+    DrawTexture(rock, (int)position.x, (int)position.y, color);
     //DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
@@ -126,7 +122,8 @@ void Projectile::render()
         return;
     }
 
-    DrawRectangle((int)position.x, (int)position.y, size, size, WHITE);
+    DrawTexture(shot, (int)position.x, (int)position.y, WHITE);
+    //DrawRectangle((int)position.x, (int)position.y, size, size, WHITE);
     return;
 }
 
@@ -154,12 +151,12 @@ void Coin::render()
 
 void Particle::update()
 {
-    position.x += speed.x;
-    position.y += speed.y;
+    position.x += direction.x * speed.x;
+    position.y += direction.y * speed.y;
 }
 
 void Particle::render()
 {
-    DrawRectangle((int)position.x, (int)position.y, 4, 4, color);
+    DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
