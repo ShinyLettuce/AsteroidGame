@@ -56,7 +56,6 @@ void Level::spawn_explosion(Vector2 pos)
 		fire.position  = pos;
 		fire.speed     = { random_float_in_range(4,6),random_float_in_range(4,6) };
 		fire.direction = normalize(cosf(random_float_in_range(0,2 * PI)),sinf(random_float_in_range(0,2 * PI)));
-		//normalize(fire.direction.x, fire.direction.y);
 
 		fire.color = RED;
 		if (i > 4)
@@ -83,7 +82,6 @@ void Level::spawn_charge_particles()
 	charge.speed     = { random_float_in_range(3,5),random_float_in_range(3,5) };
 	charge.size      = 4;
 	charge.color     = SKYBLUE;
-	//normalize(charge.direction.x, charge.direction.y);
 
 	all_particles.push_back(charge);
 }
@@ -140,7 +138,6 @@ void Level::update()
 		if (p.charge == true)
 		{
 			p.direction = normalize(mario.position.x + 10 - p.position.x, mario.position.y + 10 - p.position.y);
-			//normalize(p.direction.x, p.direction.y);
 
 			if (collision(p.position, mario.position, p.size, mario.size) || mario.shot_fired == true)
 			{
