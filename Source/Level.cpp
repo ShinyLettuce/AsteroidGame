@@ -228,16 +228,26 @@ void Level::update()
 
 	// SCREEN FLASH
 	if (screen_flash_timer > 7)
+	{
 		background = BLUE;
+	}
 	else if (screen_flash_timer > 5)
+	{
 		background = WHITE;
+	}
 	else if (screen_flash_timer > 3)
+	{
 		background = RED;
+	}
 	else
+	{
 		background = BLACK;
+	}
 	
-	if(screen_flash_timer>0)
+	if (screen_flash_timer > 0)
+	{
 	screen_flash_timer--;
+	}
 
 	remove_dead_entities();
 }

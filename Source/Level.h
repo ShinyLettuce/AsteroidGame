@@ -14,13 +14,12 @@ public:
 
 	Player mario;
 	Projectile shot;
-	std::list<Rock> all_rocks		  = {};  // using list since that has the member function remove_if
+	std::list<Rock> all_rocks		  = {};
 	std::list<Coin> all_coins         = {};
 	std::list<Particle> all_particles = {};
 
 	Color background = BLACK;
 
-	// Vector2 size;
 	int point_count        = 0;
 	int combo_timer        = 0;
 	int coin_value         = 50;
@@ -36,9 +35,9 @@ public:
 	void spawn_charge_particles();
 	void spawn_rock();
 	void spawn_projectile();
-	void spawn_coin(Rock rock); // TODO: try implementing entity pool
+	void spawn_coin(Rock rock); 
 
-	void remove_dead_entities();  // TODO: make these into one function
+	void remove_dead_entities();
 
 	void media_init();
 	void level_init();

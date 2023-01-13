@@ -1,7 +1,4 @@
 #include "Entity.h"
-#include "Level.h"
-#include <cmath>
-//#include <iostream>
 
 void Player::update()
 {
@@ -29,7 +26,6 @@ void Player::update()
         input.x = 1;
     }
 
-    // normalizing input vector             TODO: put in math.cpp
     normalize(input.x, input.y);
 
     if ((position.x + input.x * speed.x) < 450 - size && (position.x + input.x * speed.x) > 0)
@@ -61,7 +57,7 @@ void Player::update()
         {
             shot_fired = true;
         }
-        speed = { 4.5,4.5 };
+        speed = { 5,5 };
         color = WHITE;
         charging_shot = false;
         charge_time = 0;
@@ -76,7 +72,6 @@ void Player::render()
     }
 
     DrawTexture(ship,(int)position.x,(int)position.y, color);
-    //DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
 
@@ -100,7 +95,6 @@ void Rock::render()
     }
 
     DrawTexture(rock, (int)position.x, (int)position.y, color);
-    //DrawRectangle((int)position.x, (int)position.y, size, size, color);
     return;
 }
 
@@ -122,8 +116,7 @@ void Projectile::render()
         return;
     }
 
-    DrawTexture(shot, (int)position.x, (int)position.y, WHITE);
-    //DrawRectangle((int)position.x, (int)position.y, size, size, WHITE);
+    DrawTexture(shot, (int)position.x, (int)position.y, color);
     return;
 }
 
@@ -151,8 +144,14 @@ void Coin::render()
 
 void Particle::update()
 {
+    if (dead == true)
+    {
+        return;
+    }
+
     position.x += direction.x * speed.x;
     position.y += direction.y * speed.y;
+    return;
 }
 
 void Particle::render()

@@ -7,7 +7,7 @@ class Entity
 public:
     Vector2 position = {};
     Vector2 speed = {};
-    Color color;
+    Color color = WHITE;
     int size;
     bool dead = false;
 
@@ -25,12 +25,9 @@ class Player : public Entity
 {
 public:
     Texture2D ship = LoadTexture("Ship3.1.png");
-    Vector2 position = { 225,225 };
-    Vector2 speed = { 4.5,4.5 };
     int size = 20;
     bool dead = true;
     Vector2 input = { 0,0 };
-    Color color = WHITE;
 
     int charge_time = 0;
     bool charging_shot = false;
@@ -48,7 +45,6 @@ public:
     Vector2 speed = { 6,6 };
     int size = 20;
     Vector2 direction = random_direction();
-    Color color = WHITE;
 
     void update();
     void render();
