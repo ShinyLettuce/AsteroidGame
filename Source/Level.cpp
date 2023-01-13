@@ -125,6 +125,7 @@ void Level::remove_dead_entities()
 
 void Level::update()
 {
+	// PLAYER
 	mario.update();
 
 	//PARTICLES
@@ -225,9 +226,6 @@ void Level::update()
 		coin_value = 50;
 	}
 
-
-	remove_dead_entities();
-
 	// SCREEN FLASH
 	if (screen_flash_timer > 7)
 		background = BLUE;
@@ -240,6 +238,8 @@ void Level::update()
 	
 	if(screen_flash_timer>0)
 	screen_flash_timer--;
+
+	remove_dead_entities();
 }
 
 //  #--------#
