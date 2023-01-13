@@ -6,13 +6,13 @@
 
 void Level::level_init()
 {
-	mario.position = { 220,355 };
-	mario.speed = { 5,5 };
-	mario.charge_time = 0;
+	mario.position      = { 220,355 };
+	mario.speed         = { 5,5 };
+	mario.charge_time   = 0;
 	mario.charging_shot = false;
-	mario.dead = false;
-	mario.color = WHITE;
-	point_count = 0;
+	mario.dead          = false;
+	mario.color         = WHITE;
+	point_count         = 0;
 
 	for (Coin& c : all_coins)
 	{
@@ -36,10 +36,10 @@ void Level::media_init()
 {
 	InitAudioDevice();
 
-	menusound = LoadSound("menu.wav");
-	death = LoadSound("death.wav");
+	menusound   = LoadSound("menu.wav");
 	collectible = LoadSound("collectible.wav");
-	laser = LoadSound("laser2.0.wav");
+	laser       = LoadSound("laser2.0.wav");
+	death       = LoadSound("death.wav");
 }
 
 //  #---------------#
@@ -49,10 +49,11 @@ void Level::media_init()
 void Level::spawn_spacedust()
 {
 		Particle dust;
-		dust.position = { random_float_in_range(20.f,430.f),0 };
-		dust.speed = { 0,random_float_in_range(3,10) };
+		dust.position  = { random_float_in_range(20.f,430.f),0 };
+		dust.speed     = { 0,random_float_in_range(3,10) };
 		dust.direction = { 0,1 };
-		dust.color = LIGHTGRAY;
+		dust.color     = LIGHTGRAY;
+
 		all_particles.push_back(dust);
 }
 
@@ -62,32 +63,37 @@ void Level::spawn_explosion(Vector2 pos)
 	{
 		Particle fire;
 		fire.explosion = true;
-		fire.position = pos;
-		fire.speed = { random_float_in_range(4,6),random_float_in_range(4,6) };
+		fire.position  = pos;
+		fire.speed     = { random_float_in_range(4,6),random_float_in_range(4,6) };
 		fire.direction = { cosf(random_float_in_range(0,2 * PI)),sinf(random_float_in_range(0,2 * PI)) };
 
 		fire.color = RED;
 		if (i > 4)
+		{
 			fire.color = YELLOW;
+		}
 		if (i > 8)
+		{
 			fire.color = ORANGE;
+		}
+
 		all_particles.push_back(fire);
 
-		screen_flash_timer = 10;
 	}
+		screen_flash_timer = 10;
 }
 
 void Level::spawn_charge_particles()
 {
 	Particle charge;
-	charge.charge = true;
-	charge.size = 4;
-	charge.position = { random_float_in_range(mario.position.x - 30,mario.position.x + 50),random_float_in_range(mario.position.y - 30,mario.position.y + 50) };
-	charge.speed = { random_float_in_range(3,5),random_float_in_range(3,5) };
+	charge.charge    = true;
+	charge.position  = { random_float_in_range(mario.position.x - 30,mario.position.x + 50),random_float_in_range(mario.position.y - 30,mario.position.y + 50) };
 	charge.direction = { mario.position.x + 10 - charge.position.x, mario.position.y + 10 - charge.position.y };
+	charge.speed     = { random_float_in_range(3,5),random_float_in_range(3,5) };
+	charge.size      = 4;
+	charge.color     = SKYBLUE;
 	normalize(charge.direction.x, charge.direction.y);
 
-	charge.color = SKYBLUE;
 	all_particles.push_back(charge);
 }
 

@@ -18,7 +18,6 @@ public:
     virtual void render()
     {
     }
-
 };
 
 class Player : public Entity
@@ -43,8 +42,8 @@ public:
     Texture2D rock = LoadTexture("Rock2.0.png"); // this sucks since every new rock will load the texture      TODO: create asset manager (probably using pointers)
     Vector2 position = { random_float_in_range(20.f,430.f),0};
     Vector2 speed = { 6,6 };
-    int size = 20;
     Vector2 direction = random_direction();
+    int size = 20;
 
     void update();
     void render();
@@ -80,7 +79,6 @@ public:
     Vector2 position = {};
     Vector2 speed = {};
     Vector2 direction = {};
-
     int size = 2;
 
     bool explosion = false;
