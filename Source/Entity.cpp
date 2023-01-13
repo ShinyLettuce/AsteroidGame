@@ -71,7 +71,7 @@ void Player::render()
         return;
     }
 
-    DrawTexture(ship,(int)position.x,(int)position.y, color);
+    DrawTexture(Media::ship,(int)position.x,(int)position.y, color);
     return;
 }
 
@@ -94,7 +94,7 @@ void Rock::render()
         return;
     }
 
-    DrawTexture(rock, (int)position.x, (int)position.y, color);
+    DrawTexture(Media::rock, (int)position.x, (int)position.y, color);
     return;
 }
 
@@ -116,7 +116,7 @@ void Projectile::render()
         return;
     }
 
-    DrawTexture(shot, (int)position.x, (int)position.y, color);
+    DrawTexture(Media::shot, (int)position.x, (int)position.y, color);
     return;
 }
 

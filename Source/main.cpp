@@ -1,5 +1,4 @@
 #include "Level.h"
-#include "Media.h"
 #include <stack>
 
 enum class GAME_STATE
@@ -15,7 +14,7 @@ void main_menu(Level& l)
     if (IsKeyPressed(KEY_X))
     {
         l.level_init();
-        PlaySoundMulti(l.menusound);
+        PlaySoundMulti(Media::menusound);
         game_state.push(GAME_STATE::GAME);
     }
     
@@ -50,8 +49,8 @@ int main(void)
     const int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "Survive in space");
+    Media::media_init();
     Level space;
-    space.media_init();
     game_state.push(GAME_STATE::MAIN_MENU);
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second

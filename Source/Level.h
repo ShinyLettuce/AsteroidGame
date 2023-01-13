@@ -7,11 +7,6 @@
 class Level
 {
 public:
-	Sound menusound;
-	Sound death;
-	Sound collectible;
-	Sound laser;
-
 	Player mario;
 	Projectile shot;
 	std::list<Rock> all_rocks		  = {};
@@ -39,7 +34,6 @@ public:
 
 	void remove_dead_entities();
 
-	void media_init();
 	void level_init();
 
 	void update();

@@ -32,16 +32,6 @@ void Level::level_init()
 	remove_dead_entities();
 }
 
-void Level::media_init()
-{
-	InitAudioDevice();
-
-	menusound   = LoadSound("menu.wav");
-	collectible = LoadSound("collectible.wav");
-	laser       = LoadSound("laser2.0.wav");
-	death       = LoadSound("death.wav");
-}
-
 //  #---------------#
 //  |SPAWN FUNCTIONS|  (PLUS REMOVE DEAD FUNCTIONS)
 //  #---------------#
@@ -162,8 +152,8 @@ void Level::update()
 	// PROJECTILE
 	if (mario.shot_fired == true)
 	{
-		PlaySoundMulti(laser);
 		spawn_projectile();
+		PlaySoundMulti(Media::laser);
 		mario.shot_fired = false;
 	}
 	shot.update();
@@ -190,7 +180,7 @@ void Level::update()
 			spawn_coin(r);
 			}
 			spawn_explosion(r.position);
-			PlaySoundMulti(death);
+			PlaySoundMulti(Media::death);
 		}
 		if (collision(r.position,mario.position,r.size,mario.size) &&
 			mario.dead == false)
@@ -198,7 +188,7 @@ void Level::update()
 			mario.dead = true;
 			combo_timer = 0;
 			spawn_explosion(mario.position);
-			PlaySoundMulti(death);
+			PlaySoundMulti(Media::death);
 		}
 		r.update();
 	}
@@ -214,7 +204,7 @@ void Level::update()
 			mario.dead == false)
 		{
 			c.dead = true;
-			PlaySoundMulti(collectible);
+			PlaySoundMulti(Media::collectible);
 
 			combo_timer = 60;           // start/prolong combo (thinking of implementing combo as an entity)
 			point_count += coin_value;
