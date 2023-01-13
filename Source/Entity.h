@@ -19,9 +19,6 @@ public:
     {
     }
 
-    virtual void kill()
-    {
-    }
 };
 
 class Player : public Entity

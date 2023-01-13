@@ -13,7 +13,7 @@ float random_float_in_range(float min, float max)
 Vector2 random_direction()
 {
 	float angle = random_float_in_range(PI/4.f,(3.f*PI)/4.f );
-	return Vector2(cos(angle), sin(angle));
+	return Vector2(cosf(angle), sinf(angle));
 }
 
 int rock_spawnrate(int point_count, int rock_cooldown)
