@@ -13,10 +13,10 @@ Texture2D Media::shot;
 {
 	InitAudioDevice();
 
-	menusound = LoadSound("menu.wav");
+	menusound   = LoadSound("menu.wav");
 	collectible = LoadSound("collectible.wav");
-	laser = LoadSound("laser2.0.wav");
-	death = LoadSound("death.wav");
+	laser       = LoadSound("laser2.0.wav");
+	death       = LoadSound("death.wav");
 
 	ship = LoadTexture("Ship3.1.png");
 	rock = LoadTexture("Rock2.0.png");

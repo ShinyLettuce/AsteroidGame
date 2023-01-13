@@ -6,11 +6,6 @@
 
 class Level
 {
-	Projectile shot;
-	std::list<Rock> all_rocks		  = {};
-	std::list<Coin> all_coins         = {};
-	std::list<Particle> all_particles = {};
-
 	Color background = BLACK;
 
 	int point_count        = 0;
@@ -32,7 +27,12 @@ class Level
 
 	void remove_dead_entities();
 public:
+
 	Player mario;
+	Projectile shot;
+	std::list<Rock> all_rocks		  = {};
+	std::list<Coin> all_coins         = {};
+	std::list<Particle> all_particles = {};
 
 	void level_init();
 
