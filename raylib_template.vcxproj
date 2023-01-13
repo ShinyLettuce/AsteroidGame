@@ -165,11 +165,13 @@
     <ClCompile Include="Source\Level.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Math.cpp" />
+    <ClCompile Include="Source\Media.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\Level.h" />
     <ClInclude Include="Source\Math.h" />
+    <ClInclude Include="Source\Media.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

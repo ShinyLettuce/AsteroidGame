@@ -1,5 +1,5 @@
-#include "raylib.h"
 #include "Level.h"
+#include "Media.h"
 #include <stack>
 
 enum class GAME_STATE
@@ -22,7 +22,6 @@ void main_menu(Level& l)
     l.update();
     l.render();
     
-    ClearBackground(BLACK);
     DrawText("Survive", 135, 120, 48, RED);
     DrawText("Space", 150, 168, 48, RED);
     DrawText("press x to start", 160, 216, 16, WHITE);
@@ -51,7 +50,6 @@ int main(void)
     const int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "Survive in space");
-
     Level space;
     space.media_init();
     game_state.push(GAME_STATE::MAIN_MENU);

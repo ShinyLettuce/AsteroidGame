@@ -1,5 +1,4 @@
 #include "Level.h"
-//#include <iostream>
 
 //  #------------#
 //  | INITIALISE |
@@ -10,6 +9,7 @@ void Level::level_init()
 	mario.position = { 220,355 };
 	mario.speed = { 5,5 };
 	mario.charge_time = 0;
+	mario.charging_shot = false;
 	mario.dead = false;
 	mario.color = WHITE;
 	point_count = 0;
@@ -35,9 +35,11 @@ void Level::level_init()
 void Level::media_init()
 {
 	InitAudioDevice();
+
 	menusound = LoadSound("menu.wav");
 	death = LoadSound("death.wav");
 	collectible = LoadSound("collectible.wav");
+	laser = LoadSound("laser2.0.wav");
 }
 
 //  #---------------#
@@ -46,32 +48,47 @@ void Level::media_init()
 
 void Level::spawn_spacedust()
 {
-	if (particle_spawn_spacing == false)
-	{
 		Particle dust;
-		dust.position = { 225.f,-95.f };
-		dust.speed = { random_float_in_range(-6,6),5.5f };
+		dust.position = { random_float_in_range(20.f,430.f),0 };
+		dust.speed = { 0,random_float_in_range(3,10) };
+		dust.direction = { 0,1 };
 		dust.color = LIGHTGRAY;
 		all_particles.push_back(dust);
-		particle_spawn_spacing = true;
-	}
-	else
-	{
-		particle_spawn_spacing = false;
-	}
 }
 
 void Level::spawn_explosion(Vector2 pos)
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		Particle fire;
 		fire.explosion = true;
 		fire.position = pos;
+		fire.speed = { random_float_in_range(4,6),random_float_in_range(4,6) };
+		fire.direction = { cosf(random_float_in_range(0,2 * PI)),sinf(random_float_in_range(0,2 * PI)) };
+
 		fire.color = RED;
-		fire.speed = { random_float_in_range(-5,5),random_float_in_range(-5,5) };
+		if (i > 4)
+			fire.color = YELLOW;
+		if (i > 8)
+			fire.color = ORANGE;
 		all_particles.push_back(fire);
+
+		screen_flash_timer = 10;
 	}
+}
+
+void Level::spawn_charge_particles()
+{
+	Particle charge;
+	charge.charge = true;
+	charge.size = 4;
+	charge.position = { random_float_in_range(mario.position.x - 30,mario.position.x + 50),random_float_in_range(mario.position.y - 30,mario.position.y + 50) };
+	charge.speed = { random_float_in_range(3,5),random_float_in_range(3,5) };
+	charge.direction = { mario.position.x + 10 - charge.position.x, mario.position.y + 10 - charge.position.y };
+	normalize(charge.direction.x, charge.direction.y);
+
+	charge.color = SKYBLUE;
+	all_particles.push_back(charge);
 }
 
 void Level::spawn_projectile()
@@ -108,16 +125,42 @@ void Level::remove_dead_entities()
 
 void Level::update()
 {
+	// PLAYER
+	mario.update();
+
 	//PARTICLES
 	spawn_spacedust();
+	if (mario.charging_shot == true && mario.dead == false)
+	{
+		spawn_charge_particles();
+	}
 	for (Particle &p : all_particles)
 	{
-		if (p.position.x > 450 || p.position.x < 0 || p.position.y > 450)
+		if (p.position.x > 450 || p.position.x < 0 || p.position.y > 450 || p.position.y < 0)
 		{
 			p.dead = true;
 		}
+		if (p.charge == true)
+		{
+			p.direction = { mario.position.x + 10 - p.position.x, mario.position.y + 10 - p.position.y };
+			normalize(p.direction.x, p.direction.y);
+
+			if (collision(p.position, mario.position, p.size, mario.size) || mario.shot_fired == true)
+			{
+				p.dead = true;
+			}
+		}
 		p.update();
 	}
+
+	// PROJECTILE
+	if (mario.shot_fired == true)
+	{
+		PlaySoundMulti(laser);
+		spawn_projectile();
+		mario.shot_fired = false;
+	}
+	shot.update();
 
 	//ROCKS
 	rock_timer++;
@@ -153,6 +196,7 @@ void Level::update()
 		}
 		r.update();
 	}
+
 	// COINS
 	for (Coin& c : all_coins)
 	{
@@ -182,14 +226,18 @@ void Level::update()
 		coin_value = 50;
 	}
 
+	// SCREEN FLASH
+	if (screen_flash_timer > 7)
+		background = BLUE;
+	else if (screen_flash_timer > 5)
+		background = WHITE;
+	else if (screen_flash_timer > 3)
+		background = RED;
+	else
+		background = BLACK;
 	
-	if (mario.shot_fired == true)
-	{
-		spawn_projectile();
-		mario.shot_fired = false;
-	}
-	shot.update();
-	mario.update();
+	if(screen_flash_timer>0)
+	screen_flash_timer--;
 
 	remove_dead_entities();
 }
@@ -200,7 +248,7 @@ void Level::update()
 
 void Level::render()
 {
-	ClearBackground(BLACK);
+	ClearBackground(background);
 
 	for (Particle p : all_particles)
 	{
@@ -220,7 +268,7 @@ void Level::render()
 
 	if (combo_timer > 0)
 	{
-	DrawText(TextFormat("+" "%i",combo_text_value), mario.position.x + 35, mario.position.y, 16, YELLOW); //draw combo text
+	DrawText(TextFormat("+" "%i",combo_text_value), (int)mario.position.x + 35, (int)mario.position.y, 16, YELLOW);
 	}
 	DrawText(TextFormat("%02i",point_count), 210, 10, 24, BLUE);
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include "Entity.h"
+#include "Math.h"
+#include "Media.h"
 #include <list>
 
 class Level
@@ -8,6 +10,7 @@ public:
 	Sound menusound;
 	Sound death;
 	Sound collectible;
+	Sound laser;
 
 	Player mario;
 	Projectile shot;
@@ -15,19 +18,22 @@ public:
 	std::list<Coin> all_coins         = {};
 	std::list<Particle> all_particles = {};
 
+	Color background = BLACK;
+
 	// Vector2 size;
-	unsigned int point_count          = 0;
-	unsigned short combo_timer        = 0;
-	unsigned short coin_value         = 50;
-	unsigned short combo_text_value;
+	int point_count        = 0;
+	int combo_timer        = 0;
+	int coin_value         = 50;
+	int combo_text_value   = 0;
 
-	unsigned short rock_timer         = 0;
-	unsigned short rock_cooldown      = 65;
+	int rock_timer         = 0;
+	int rock_cooldown      = 65;
 
-	bool particle_spawn_spacing       = false;
+	int screen_flash_timer = 0;
 
 	void spawn_spacedust();
 	void spawn_explosion(Vector2 pos);
+	void spawn_charge_particles();
 	void spawn_rock();
 	void spawn_projectile();
 	void spawn_coin(Rock rock); // TODO: try implementing entity pool
