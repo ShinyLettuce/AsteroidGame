@@ -26,7 +26,7 @@ void Player::update()
         input.x = 1;
     }
 
-    normalize(input.x, input.y);
+    input = normalize(input.x, input.y);
 
     if ((position.x + input.x * speed.x) < 450 - size && (position.x + input.x * speed.x) > 0)
     {
