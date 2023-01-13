@@ -1,5 +1,14 @@
 #include "Math.h"
 
+Vector2 normalize(float vect_x, float vect_y)
+{
+	float length = sqrt(vect_x * vect_x + vect_y * vect_y);
+	if (length > FLT_EPSILON) // FLT_EPSILON because we want to avoid using zero
+	{
+		return{ vect_x /= length, vect_y /= length };
+	}
+}
+
 float random_float01()
 {
 	return rand() / static_cast<float>(RAND_MAX);
@@ -12,8 +21,8 @@ float random_float_in_range(float min, float max)
 
 Vector2 random_direction()
 {
-	float angle = random_float_in_range(PI/4.f,(3.f*PI)/4.f );
-	return Vector2(cosf(angle), sinf(angle));
+	float angle = random_float_in_range(PI/8.f,(3*PI)/4.f );
+	return normalize(cosf(angle), sinf(angle) +3);
 }
 
 int rock_spawnrate(int point_count, int rock_cooldown)
@@ -34,13 +43,4 @@ bool collision(Vector2 a_pos, Vector2 b_pos, int a_size, int b_size)
 		a_pos.x + a_size >= b_pos.x &&
 		a_pos.y + a_size >= b_pos.y &&
 		a_pos.y <= b_pos.y + b_size;
-}
-
-Vector2 normalize(float vect_x, float vect_y)
-{
-	float length = sqrt(vect_x * vect_x + vect_y * vect_y);
-	if (length > FLT_EPSILON) // FLT_EPSILON because we want to avoid using zero
-	{
-		return{ vect_x /= length, vect_y /= length };
-	}
 }

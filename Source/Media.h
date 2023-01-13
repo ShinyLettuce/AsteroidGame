@@ -7,6 +7,7 @@ struct Media
 	static Sound collectible;
 	static Sound laser;
 	static Sound death;
+	static Sound charge;
 
 
 	static Texture2D ship;

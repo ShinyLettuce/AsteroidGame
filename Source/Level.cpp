@@ -54,7 +54,7 @@ void Level::spawn_explosion(Vector2 pos)
 		Particle fire;
 		fire.explosion = true;
 		fire.position  = pos;
-		fire.speed     = { random_float_in_range(4,6),random_float_in_range(4,6) };
+		fire.speed     = { random_float_in_range(3,6),random_float_in_range(3,6) };
 		fire.direction = normalize(cosf(random_float_in_range(0,2 * PI)),sinf(random_float_in_range(0,2 * PI)));
 
 		fire.color = RED;
@@ -125,7 +125,7 @@ void Level::update()
 
 	//PARTICLES
 	spawn_spacedust();
-	if (mario.charging_shot == true && mario.dead == false)
+	if (mario.charging_shot && !mario.dead)
 	{
 		spawn_charge_particles();
 	}
@@ -204,18 +204,18 @@ void Level::update()
 			c.dead = true;
 			PlaySoundMulti(Media::collectible);
 
-			combo_timer = 60;           // start/prolong combo (thinking of implementing combo as an entity)
+			combo_timer = 60;           
 			point_count += coin_value;
 			combo_text_value = coin_value;
 			coin_value += 10;
 		}
 		c.update();
 	}
-	if (combo_timer > 0)                // decrease combo timer
+	if (combo_timer > 0)               
 	{
 		combo_timer--;
 	}
-	else                                // end combo
+	else
 	{
 		coin_value = 50;
 	}
@@ -274,5 +274,5 @@ void Level::render()
 	{
 	DrawText(TextFormat("+" "%i",combo_text_value), (int)mario.position.x + 35, (int)mario.position.y, 16, YELLOW);
 	}
-	DrawText(TextFormat("%02i",point_count), 210, 10, 24, BLUE);
+	DrawText(TextFormat("%05i",point_count), 195, 10, 24, BLUE);
 }

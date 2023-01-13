@@ -43,6 +43,10 @@ void Player::update()
 
     if (IsKeyDown(KEY_Z))
     {
+        if (!charging_shot)
+        {
+            PlaySoundMulti(Media::charge);
+        }
         charging_shot = true;
         charge_time++;
         speed = { 2,2 };
@@ -52,7 +56,7 @@ void Player::update()
         }
     }
     if (IsKeyReleased(KEY_Z))
-    {
+    {   
         if (charge_time >= 60)
         {
             shot_fired = true;
