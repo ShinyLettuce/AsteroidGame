@@ -6,8 +6,6 @@
 
 class Level
 {
-public:
-	Player mario;
 	Projectile shot;
 	std::list<Rock> all_rocks		  = {};
 	std::list<Coin> all_coins         = {};
@@ -33,6 +31,8 @@ public:
 	void spawn_coin(Rock rock); 
 
 	void remove_dead_entities();
+public:
+	Player mario;
 
 	void level_init();
 
