@@ -40,7 +40,7 @@ int rock_spawnrate(int point_count, int rock_cooldown)
 bool collision(Vector2 a_pos, Vector2 b_pos, int a_size, int b_size)
 {
 	return a_pos.x <= b_pos.x + b_size &&
-		a_pos.x + a_size >= b_pos.x &&
-		a_pos.y + a_size >= b_pos.y &&
-		a_pos.y <= b_pos.y + b_size;
+		   a_pos.x + a_size >= b_pos.x &&
+	   	   a_pos.y + a_size >= b_pos.y &&
+		   a_pos.y <= b_pos.y + b_size;
 }

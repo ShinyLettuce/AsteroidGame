@@ -18,7 +18,7 @@ Texture2D Media::shot;
 	collectible = LoadSound("collectible.wav");
 	laser       = LoadSound("laser2.0.wav");
 	death       = LoadSound("death.wav");
-	charge = LoadSound("charge.wav");
+	charge      = LoadSound("charge.wav");
 
 	ship = LoadTexture("Ship3.1.png");
 	rock = LoadTexture("Rock2.0.png");
